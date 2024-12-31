@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(45deg, #8e44ad, #3498db, #2ecc71);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        width: 100%;
+        max-width: 400px;
+        transform: translateY(-20px);
+      }
+
+      h1 {
+        color: white;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .message {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         margin-top: 10px;
+         text-align: center;
+        }
+
+      .message h3 {
+      margin: 10px 0;
+      font-size: 1.1em;
+      }
+
+
+      input {
+        width: 100%;
+        padding: 15px;
+        margin: 10px 0;
+        border: 2px solid transparent;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      .password-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .password-container input {
+        padding-right: 45px;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #666;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+        transform: scale(1.02);
+      }
+
+      button {
+        width: 100%;
+        padding: 15px;
+        margin: 20px 0;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(45deg, #2ecc71, #3498db);
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 20px rgba(46, 204, 113, 0.3);
+        background: linear-gradient(45deg, #3498db, #2ecc71);
+      }
+
+      a {
+        text-decoration: none;
+        width: 100%;
+        display: block;
+      }
+
+      .container {
+        animation: fadeIn 1s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(-20px);
+        }
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const togglePassword = document.querySelector(".toggle-password");
+        const passwordInput = document.querySelector('input[name="password"]');
+
+        togglePassword.addEventListener("click", function () {
+          const type =
+            passwordInput.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordInput.setAttribute("type", type);
+          this.classList.toggle("fa-eye");
+          this.classList.toggle("fa-eye-slash");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login</h1>
+
+      <div
+        class="message"
+        th:if="${session.success != null || session.error != null}"
+      >
+        <h3 style="color: #15ec15" th:text="${session.success}"></h3>
+        <h3 style="color: #ea0b0b" th:text="${session.error}"></h3>
+        <th:block th:text="${@messageRemover.remove()}"></th:block>
+      </div>
+
+      <form action="/login" method="post">
+        <input type="text" name="emph" placeholder="Email or Phone Number" />
+        <div class="password-container">
+          <input type="password" name="password" placeholder="Password" />
+          <i class="fas fa-eye toggle-password"></i>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+
+      <br />
+      <a href="/"><button type="menu">Back</button></a>
+    </div>
+  </body>
+</html>

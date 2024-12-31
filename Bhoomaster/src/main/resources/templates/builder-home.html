@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+      }
+      .message {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 120px;
+        backdrop-filter: blur(5px);
+      }
+      h1 {
+        font-size: 2.5em;
+        margin: 120px 0 40px 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      }
+      button {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        padding: 15px 30px;
+        margin: 10px;
+        border-radius: 25px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      }
+      button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      }
+      .success {
+        color: #4CAF50;
+      }
+      .error {
+        color: #f44336;
+      }
+      .button-container {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="message"
+      th:if="${session.success != null || session.error != null}"
+    >
+      <h3 class="success" th:text="${session.success}"></h3>
+      <h3 class="error" th:text="${session.error}"></h3>
+      <th:block th:text="${@messageRemover.remove()}"></th:block>
+    </div>
+    <h1>Builder Home</h1>
+    <div class="button-container">
+      <a href="/builder/post-property"><button>Post property</button></a>
+      <a href="/builder/manage-properties"><button>Manage properties</button></a>
+      <a href="/logout"><button>Logout</button></a>
+    </div>
+    
+    <script>
+      // Add ripple effect to buttons
+      document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', function(e) {
+          let ripple = document.createElement('div');
+          this.appendChild(ripple);
+          let x = e.clientX - e.target.offsetLeft;
+          let y = e.clientY - e.target.offsetTop;
+          ripple.style.left = x + 'px';
+          ripple.style.top = y + 'px';
+          setTimeout(() => {
+            ripple.remove();
+          }, 1000);
+        });
+      });
+    </script>
+  </body>
+</html>

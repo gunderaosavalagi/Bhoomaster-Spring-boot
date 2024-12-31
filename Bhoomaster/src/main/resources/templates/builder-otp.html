@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .message {
+            margin: 20px 0;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>builder OTP</h1>
+    <div class="message" th:if="${session.success != null || session.error != null}">
+        <h3 style="color: green;" th:text="${session.success}"></h3>
+        <h3 style="color:red" th:text="${session.error}"></h3>
+        <th:block th:text="${@messageRemover.remove()}"></th:block>
+    </div>
+    <form action="/builder/otp" method="post">
+        <input type="text" name="otp" placeholder="Enter OTP">
+        <input type="hidden" name="id" th:value="${id}">
+        <button type="submit">Submit</button>
+    </form>
+    <a th:href="'/builder/resend-otp/'+${id}">Resend OTP</a>
+</body></html>

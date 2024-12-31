@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Job</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            animation: formGlitter 2s infinite;
+        }
+        @keyframes formGlitter {
+            0% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(123, 175, 255, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            border-color: #7ba7ff;
+            box-shadow: 0 0 10px rgba(123, 167, 255, 0.2);
+            outline: none;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        button {
+            background: linear-gradient(45deg, #549f57, #239e1a);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(123, 167, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/builder/post-property" method="post" enctype="multipart/form-data" id="propertyForm">
+        <label for="propertyName">Property Name:</label>
+        <input type="text" name="propertyName" id="propertyName" required>
+    
+        <label for="image">Property Image:</label>
+
+        <input type="file" name="image" id="image" required accept="image/*">
+    
+        <label for="details">Property Details:</label>
+        <textarea name="details" id="details" required></textarea>
+    
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" required>
+    
+        <label for="price">Price:</label>
+        <input type="number" name="price" id="price" required>
+    
+        <label for="year">Year Built:</label>
+        <input type="number" name="year" id="year" required>
+    
+        <button type="submit">Post Property</button>
+    </form>
+
+
+    <script>
+        document.getElementById('propertyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const price = document.getElementById('price').value;
+            const year = document.getElementById('year').value;
+            const currentYear = new Date().getFullYear();
+
+            if (price <= 0) {
+                alert('Please enter a valid price');
+                return;
+            }
+
+            if (year < 1800 || year > currentYear) {
+                alert('Please enter a valid year');
+                return;
+            }
+
+            // Image preview before upload
+            const imageFile = document.getElementById('image').files[0];
+            if (imageFile && !imageFile.type.startsWith('image/')) {
+                alert('Please select a valid image file');
+                return;
+            }
+
+            // If all validations pass, submit the form
+            this.submit();
+        });
+
+        // Preview image when selected
+        document.getElementById('image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.createElement('img');
+                    preview.src = e.target.result;
+                    preview.style.maxWidth = '100%';
+                    preview.style.marginBottom = '20px';
+                    const existingPreview = document.querySelector('.image-preview');
+                    if (existingPreview) {
+                        existingPreview.remove();
+                    }
+                    preview.classList.add('image-preview');
+                    document.getElementById('image').parentNode.insertBefore(preview, document.getElementById('image').nextSibling);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

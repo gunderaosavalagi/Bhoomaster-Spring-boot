@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details</title>
+    <style>
+        /* Grid Layout */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .property-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 450px; /* Adjusted height to fit the delete button */
+        }
+
+        .property-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .property-card h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .property-card p {
+            font-size: 1em;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .property-card .price {
+            font-size: 1.5em;
+            color: #28a745;
+            margin-top: 10px;
+        }
+
+        .delete-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #dc3545;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="property-grid">
+    <div th:each="property : ${properties}" class="property-card">
+        <!-- Display Property Image -->
+        <img th:src="@{/builder/property-image/{id}(id=${property.id})}" alt="Property Image">
+
+        <!-- Display Property Name -->
+        <h3 th:text="${property.builder.propertyName != null ? property.builder.propertyName : 'N/A'}"></h3>
+
+        <!-- Display Property Details -->
+        <p th:text="${property.details}"></p>
+
+        <!-- Display Location -->
+        <p th:text="'Location: ' + ${property.location}"></p>
+
+        <!-- Display Price -->
+        <p class="price" th:text="'Price: ' + ${property.price} + ' LPA'"></p>
+
+        <!-- Display Year -->
+        <p th:text="'Year Built: ' + ${property.year}"></p>
+
+        <!-- Delete Button -->
+        <a th:href="'/builder/delete-property/' + ${property.id}">
+        <button 
+            class="delete-button" >
+            Delete
+        </button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

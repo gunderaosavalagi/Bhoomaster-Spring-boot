@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bhoomaster - Home</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: "Roboto", Arial, sans-serif;
+		}
+
+		.navbar {
+			background-color: #34495e;
+			padding: 1rem 2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.logo {
+			color: white;
+			font-size: 1.8rem;
+			font-weight: bold;
+		}
+
+		.logo a {
+			color: white;
+			text-decoration: none;
+		}
+
+		.nav-buttons {
+			display: flex;
+			gap: 1rem;
+		}
+
+		.nav-btn {
+			padding: 0.6rem 1.5rem;
+			border: none;
+			border-radius: 25px;
+			cursor: pointer;
+			font-weight: bold;
+			transition: all 0.3s ease;
+			font-size: 0.9rem;
+		}
+
+		.register-btn {
+			background-color: #27ae60;
+			color: white;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.login-btn {
+			background-color: transparent;
+			color: white;
+			border: 2px solid white;
+		}
+
+		.register-btn:hover {
+			background-color: #1e8449;
+			transform: translateY(-2px);
+		}
+
+		.login-btn:hover {
+			background-color: rgba(255, 255, 255, 0.15);
+			transform: translateY(-2px);
+		}
+
+		.hero-section {
+			height: 100vh;
+			background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+				url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+			background-size: cover;
+			background-position: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 0 1rem;
+		}
+
+		.hero-title {
+			color: white;
+			font-size: 3.5rem;
+			margin-bottom: 1rem;
+			text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+		}
+
+		.hero-subtitle {
+			color: #ecf0f1;
+			font-size: 1.3rem;
+			margin-bottom: 2rem;
+			max-width: 700px;
+			text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+		}
+
+		.search-box {
+			background: white;
+			padding: 1rem;
+			border-radius: 50px;
+			width: 100%;
+			max-width: 600px;
+			display: flex;
+			gap: 0.5rem;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.search-input {
+			flex: 1;
+			padding: 0.8rem 1rem;
+			border: 1px solid #bdc3c7;
+			border-radius: 25px;
+			font-size: 1rem;
+		}
+
+		.search-btn {
+			padding: 0.8rem 2rem;
+			background-color: #3498db;
+			color: white;
+			border: none;
+			border-radius: 25px;
+			cursor: pointer;
+			font-size: 1rem;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.search-btn:hover {
+			background-color: #217dbb;
+			transform: scale(1.05);
+		}
+
+		.footer {
+			background-color: #34495e;
+			color: white;
+			padding: 2rem;
+			text-align: center;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			z-index: 1000;
+			box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 1rem;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 1.5rem;
+			margin-bottom: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: white;
+			text-decoration: none;
+			font-size: 1rem;
+			transition: all 0.3s ease;
+		}
+
+		.footer-links a:hover {
+			color: #27ae60;
+			text-decoration: underline;
+		}
+
+		.footer-text {
+			color: #bdc3c7;
+			font-size: 0.9rem;
+		}
+
+		.message {
+			position: fixed;
+			top: 80px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1001;
+			padding: 15px;
+			border-radius: 5px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+			background-color: white;
+		}
+
+		@media (max-width: 768px) {
+			.hero-title {
+				font-size: 2.5rem;
+			}
+
+			.hero-subtitle {
+				font-size: 1.1rem;
+			}
+
+			.search-box {
+				flex-direction: column;
+				gap: 1rem;
+			}
+
+			.search-btn {
+				width: 100%;
+			}
+
+			.footer {
+				padding: 1rem;
+			}
+
+			.footer-links {
+				gap: 1rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.footer-links {
+				flex-direction: column;
+				gap: 0.5rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar">
+		<div class="logo"><a href="/">Bhoomaster</a></div>
+		<div class="nav-buttons">
+			<a href="/login"><button class="nav-btn login-btn">Login</button></a>
+			<a href="/user/register"><button class="nav-btn register-btn">Register</button></a>
+		</div>
+	</nav>
+
+	<main class="hero-section">
+		<h1 class="hero-title">Find Your Perfect Space</h1>
+		<p class="hero-subtitle">Browse Thousands of Properties with All the Insights You Need to Make it Yours.</p>
+		<div class="search-box">
+			<input type="text" class="search-input" placeholder="Property title or keyword">
+			<button class="search-btn">Search Home</button>
+		</div>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="/about-us">About Us</a>
+				<a href="/contact">Contact</a>
+				<a href="/privacy-policy">Privacy Policy</a>
+				<a href="/terms">Terms of Service</a>
+			</div>
+			<p class="footer-text">© 2024 Bhoomaster. All rights reserved.</p>
+		</div>
+	</footer>
+</body>
+
+</html>
